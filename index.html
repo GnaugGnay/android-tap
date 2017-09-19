@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+    <style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .main-container {
+        position: relative;
+        height: 100%;
+        text-align: center;
+        padding-top: 100px;
+    }
+
+    .circle {
+        position: absolute;
+        background-color: #ccc;
+        opacity: .5;
+        border-radius: 50%;
+        z-index: -99;
+    }
+
+    .js-android-click {
+        padding: 20px 30px;
+        display: inline-block;
+        position: relative;
+        border: 1px solid #000;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="js-android-click" onselectstart='return false'>
+            ButtonButtonButtonButton
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="./js/bindClick.js"></script>
+    <script src="./js/bindClick-jquery.js"></script>
+    <script>
+    // bindClick('js-android-click');
+    bindClickJQ('js-android-click');
+    </script>
+</body>
+
+</html>
