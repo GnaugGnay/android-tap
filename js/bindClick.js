@@ -11,6 +11,7 @@ function bindClick(className) {
 }
 
 function _itemClick(e, item, duration) {
+    console.log(e);
     var fps = 60;
     var width = item.clientWidth;
     var height = item.clientHeight;

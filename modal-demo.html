@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>对话框</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #modal_container {
+            position: fixed;
+            background-color: rgba(0, 0, 0, .3);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        #dialog_frame {
+            position: absolute;
+            width: 300px;
+            top: 0;
+            left: 0;
+            background-color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <p>点击任何地方弹出对话框，点击半透明背景消失</p>
+    <div id="modal_container">
+        <div id="dialog_frame">
+            对话框测试
+        </div>    
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script>
+        let $modalContainer = $('#modal_container');
+        let $dialogFrame = $('#dialog_frame');
+        let screenWidth = $modalContainer.innerWidth();
+        let screenHeight = $modalContainer.innerHeight();
+        let leftCache = 0;
+        let topCache = 0;
+
+        $('body').on('click', (e) => {
+            leftCache = e.clientX;
+            topCache = e.clientY;
+
+            $modalContainer.fadeIn(100);
+
+            $dialogFrame.css({
+                opacity: 0,
+                left: e.clientX,
+                top: e.clientY
+            }).animate({
+                opacity: 1,
+                left: (screenWidth - $dialogFrame.innerWidth()) / 2,
+                top: screenHeight * 0.1
+            }, {
+                duration: 300,
+                // easing: 'linear',
+                step: (now, args) => {
+                    if (args.prop == 'opacity') {
+                        $dialogFrame.css('transform', `scale(${0.2 + now * 0.8})`);
+                    }
+                },
+                done: () => {
+                }
+            });
+        });
+
+        $modalContainer.on('click', (e) => {
+            e.stopPropagation();
+
+            $modalContainer.fadeOut(100);
+
+            $dialogFrame.stop().animate({
+                opacity: 0,
+                left: leftCache,
+                top: topCache
+            }, {
+                duration: 100,
+                // easing: 'linear',
+                step: (now, args) => {
+                    if (args.prop == 'opacity') {
+                        $dialogFrame.css('transform', `scale(${0.2 + now * 0.8})`);
+                    }
+                },
+                done: () => {
+                }
+            });
+        })
+
+        $dialogFrame.on('click', (e) => {
+            e.stopPropagation();
+        })
+    </script>
+</body>
+
+</html>
